@@ -17,9 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <input class="first-name" name="fname" type="text" placeholder="First name" required>
                             <input class="last-name" name="lname" type="text" placeholder="Last name">
                         </div>
-                        <div class="form-datebirth">
-                            <input type="text" name="dob" placeholder="Date of Birth (Format eg. DD/MM/YYYY)">
-                        </div>
+                       
                         <div class="form-email">
                             <input type="text" name="email" placeholder="Email" required>
                         </div>

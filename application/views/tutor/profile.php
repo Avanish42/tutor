@@ -1,203 +1,228 @@
-
-  <section class="profile">
+<!-- PROFILE -->
+    
+    <section class="profile" style="margin-top: 50px">
         <div class="container">
             <h3 class="md black">Profile</h3>
             <div class="row">
-                <div class="col-md-10 col-md-offset-1">
+                <div class="col-md-12 ">
+             <?php  error_reporting(0);
+     $msg = message();
+   if(!empty($msg)){ ?>
+       <?php echo message(); ?>
+    <?php } ?>
                     <div class="avatar-acount">
                         <div class="changes-avatar">
                             <div class="img-acount ">
-                                <img src="images/team-13.jpg"  alt="">
+                              <?php if(empty(json_decode($profile))) { ?>
+                                <img src="<?php echo base_url(); ?>assets/images/no-image.png"  alt="">
+                                <?php } ?>
+                                <img src="<?php echo base_url(); ?>assets/uploads/<?php echo json_decode($profile)[0]; ?>"  alt="">
                             </div>
                             <div class="choses-file up-file">
-                                <input type="file">
+                                <input type="file" form="profile" name="profile[]" >
                                 <input type="hidden">
                                 <a href="#" class="mc-btn btn-style-6">Changes image</a>
                             </div>
-                        </div>
+                        </div>   
                         <div class="info-acount">
-                            <h3 class="md black">User Name</h3>
-                            <!--<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>-->
-
-
-                          <!--  <p style="margin-bottom:100px;">&nbsp; </p>-->
-
-
-                            <div class="row security">
-
-                            <div class="col-md-12">
-
-
-                            <form method="post" action="<?php echo  base_url('TutorController/saveProfile'); ?>" >
+                          
+                            
+                            <div class="row security" style="border-top:0">
+                            
+                            
+                            
+                            <form method="post" id="profile" enctype="multipart/form-data" action="">
                               <div class="row">
     <div class="col-md-12">
                           <div class="col-md-6"><div class="form-group">
       <label for="fisrt name">First Name:</label>
-      <input type="text" class="form-control" id="First Name" placeholder="First Name" name="first_name">
-    </div></div>
+      <input type="text" class="form-control" id="First Name" placeholder="First Name" name="fname" value="<?php echo ($fname); ?>" >
+    </div></div>  
                           <div class="col-md-6"><div class="form-group">
       <label for="last name">Last Name:</label>
-      <input type="text" class="form-control" id="Last Name" placeholder="Last Name" name="last_name">
+      <input type="text" class="form-control" id="Last Name" placeholder="Last Name" name="lname"  value="<?php echo ($lname); ?>" >
     </div></div>
 
-                           <div class="col-md-6"><div class="form-group">
+  
+
+    <div class="col-md-6"><div class="form-group">
+      <label for="last name">Email:</label>
+      <input type="email" class="form-control" disabled  name="email" value="<?php echo $email?>"   placeholder="Email">
+    </div></div>
+
+   
+     <div class="col-md-6"><div class="form-group">
       <label for="gender">Gender</label>
     <select class="form-control" id="gender" name="gender">
-    <option value="male">Male</option>
-    <option value="female" >Female</option>
+    <option <?php selected($gender,"Male") ?> value="Male">Male</option>
+    <option <?php selected($gender,"Female") ?> value="Female">Female</option>
     </select>
-    </div></div>
+    </div></div>  
                            <div class="col-md-6"><div class="form-group">
       <label for="last name">D.O.B.</label>
-     <input type="text"  name='dob' class="form-control datepicker" placeholder="D.O.B.(DD/MM/YYYY/)">
+     <input type="date"  class="form-control datepicker" name="dob" value="<?php echo ($dob); ?>" placeholder="D.O.B.(DD/MM/YYYY/)">
     </div></div>
-
+    
     </div></div>
-
-
+    
+    
       <div class="row">
     <div class="col-md-12">
-
+    
     <div class="col-md-12"><div class="form-group">
       <label for="address">Address</label>
-   <input type="text" class="form-control" id="add" placeholder="Address1" name="address1">
-    </div></div>
-
+    <?php $address = json_decode($address); ?>
+   <input type="text" class="form-control" value="<?php echo $address[0]; ?>"  id="add" placeholder="Address1" name="address[]">
+    </div></div> 
+     
      <div class="col-md-8"><div class="form-group">
      <!-- <label for="address">Address</label>-->
-   <input type="text" class="form-control" id="add" placeholder="Address2" name="address2">
-    </div></div>
+   <input type="text" class="form-control" value="<?php echo $address[1]; ?>"  id="add" placeholder="Address2" name="address[]">
+    </div></div> 
      <div class="col-md-4"><div class="form-group">
      <!-- <label for="last name">Contact No.</label>-->
-       <input type="text" class="form-control" id="contact" placeholder="Mobile Number" name="mobile">
+       <input type="text" class="form-control" id="contact" value="<?php echo ($mobile); ?>" placeholder="Mobile Number" name="mobile">
     </div></div>
-
+    
     </div></div>
-
-
-
+    
+    
+    
     <div class="row">
     <div class="col-md-12">
     <div class="col-md-4"><div class="form-group">
       <label for="address">Bachelor Degree</label>
-  <input type="text" class="form-control" id="college" placeholder="bachelor_degree" name="bachelor_degree">
+    <?php $bachelor = json_decode($bachelor);  ?>
+  <input type="text" class="form-control" value="<?php echo $bachelor[0]; ?>" id="college" placeholder="college Name" name="bachelor[]">
     </div></div>
-
-
+    
+    
      <div class="col-md-4"><div class="form-group">
       <label for="address">Year of Joining</label>
-    <input type="text" id="#" class="form-control datepicker" placeholder="Year of Joining" name='bachelor_degree_year_join'>
+    <input type="text" id="#" class="form-control datepicker" value="<?php echo $bachelor[1]; ?>" name="bachelor[]"  placeholder="Year of Joining">
     </div></div>
-
+    
      <div class="col-md-4"><div class="form-group">
       <label for="address">Year of Passing </label>
-   <input type="text" class="form-control datepicker" placeholder="Year of Passing if he Passed" name='bachelor_degree_year_pass'>
+   <input type="text" class="form-control datepicker" value="<?php echo $bachelor[2]; ?>" name="bachelor[]" placeholder="Year of Passing if he Passed">
     </div></div>
-
+    
  </div></div>
   <div class="row">
     <div class="col-md-12">
     <div class="col-md-4"><div class="form-group">
       <label for="address">Master Degree</label>
-  <input type="text" class="form-control" id="college" placeholder="college Name" name="master_degree">
+    <?php $master = json_decode($master);  ?>
+  <input type="text" class="form-control" id="college" value="<?php echo $master[0]; ?>"  name="master[]" placeholder="college Name" name="college">
     </div></div>
-
-
+    
+    
      <div class="col-md-4"><div class="form-group">
       <label for="address">Year of Joining</label>
-    <input type="text"  class="form-control datepicker" placeholder="master_degree_year_join">
+    <input type="text"  class="form-control datepicker" value="<?php echo $master[1]; ?>"  name="master[]" placeholder="Year of Joining">
     </div></div>
-
+    
      <div class="col-md-4"><div class="form-group">
       <label for="address">Year of Passing </label>
-   <input type="text"  class="form-control datepicker" placeholder="master_degree_year_pass">
+   <input type="text"  class="form-control datepicker" value="<?php echo $master[2]; ?>"  name="master[]" placeholder="Year of Passing if he Passed">
     </div></div>
-
+    
     </div></div>
-
+    
      <div class="row">
     <div class="col-md-12">
-
-    <div class="col-md-12"><div class="form-group">
+    
+    <div class="col-md-6"><div class="form-group">
       <label >Upload Latest Passed Semester's Grade Sheet</label>
 
-      <input type="file" class="form-control" id="file" placeholder="Upload latest passed semester's grad sheet"  name="semister_grade_sheet">
+      <input type="file" class="form-control" id="file" multiple name="grade[]" placeholder="Upload latest passed semester's grad sheet" >
+      <?php $grade = json_decode($grade); if(!empty($grade)) {
+        ?>
+        <p><small>Files :-
+        <?php 
+        foreach($grade as $grade) :
+        ?>  
 
+       <a style="color:#900;" href="<?php echo base_url(); ?>assets/uploads/<?php echo $grade; ?>" ><?php echo $grade; ?>,</a>
+
+      <?php endforeach; ?> </small></p> <?php   } ?>
+
+    
     </div></div>
-    <div class="col-md-10"><div class="form-group">
+    <div class="col-md-6"><div class="form-group">
     <label >Upload Latest Gate/ IES/ Other Exams Scorecard</label>
-      <input type="file" class="form-control" id="file" placeholder="Latest Gate/ IES/ Other Exams Scorecard"  name='other_scorecard'>
+      <input type="file" class="form-control" name="gate[]" multiple id="file" placeholder="Latest Gate/ IES/ Other Exams Scorecard" >
+        <?php $gate = json_decode($gate); if(!empty($gate)) {
+        ?>
+        <p><small>Files :-
+        <?php 
+        foreach($gate as $gate) :
+        ?>  
 
+       <a style="color:#900;" href="<?php echo base_url(); ?>assets/uploads/<?php echo $gate; ?>" ><?php echo $gate; ?>,</a>
+
+      <?php endforeach; ?> </small></p> <?php   } ?>
+    
     </div></div>
-    <div class="col-md-2"><div class="form-group">
-
- <label >&nbsp;</label>
-      <!-- <button type="submit" class="btn btn-primary">Upload File</button> -->
-
-
+   
+    
+    
     </div></div>
-
-
-    </div></div>
-
-
+    
+    
     <div class="row">
     <div class="col-md-12">
-
+    
     <div class="col-md-12"><div class="form-group">
-
+   
 <label >Major Apartment</label>
-      <input type="text" class="form-control" id="college" placeholder="Major Apartment" name="major_apartment">
-
+      <input type="text"  class="form-control" id="college" placeholder="Major Apartment" value="<?php echo ($apartament); ?>"  name="apartament">
+    
     </div></div>
     <div class="col-md-12"><div class="form-group">
     <label >About You</label>
-       <textarea class="form-control" rows="4" id="comment" placeholder="About You" name="about_you"></textarea>
-
+       <textarea class="form-control" rows="4" id="comment" name="about" placeholder="About You"><?php echo ($about); ?></textarea>
+    
     </div></div>
-
-
-
+    
+    
+    
     </div></div>
-
+    
     <div class="row">
     <div class="col-md-12 ">
-    <div class="pull-right" style="margin-right:15px;">
-    <!-- <button type="cancle" class="btn btn-danger ">Cancel</button> -->
-    <button type="submit" class="btn btn-success">Submit</button>
+    <div class="" style="margin-left:15px;">
+    
+    <button type="submit" class="btn btn-lg btn-success">Submit</button>
     </div>
-
-
-
+    
     </div></div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
-
-
-
-
-
-
-
-
-
-
+                            
                             </form>
+                               
+                            
                             </div>
-
-
-                            </div>
-
-
-
-
-
-
+                            
+                            
+                            
+                            
+                            
+                            
                         </div>
-
-                    </div>
+                        
+                    </div>    
                 </div>
-
+                
             </div>
         </div>
     </section>
-

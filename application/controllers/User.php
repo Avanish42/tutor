@@ -48,30 +48,25 @@ class User extends CI_Controller {
                 'user_type' => $type,
                 'token' => $this->url_encode->encryptor('encrypt',$this->input->post('email'))
             );
-             $this->User_model->addUser($data);
+             $insert_id = $this->User_model->addUser($data);
+             $this->My_model->insert('tbl_tutor_profile',array('tbl_user_id'=>$insert_id));
 
              $html =  $this->load->view('frontend/email_verify',$data,true);
 
 
 
-             $this->load->library('email');
+             // mail function goes here
+            $this->load->library('email');
 
-            $config['protocol'] = 'sendmail';
-            $config['mailpath'] = '/usr/sbin/sendmail';
-            $config['charset'] = 'iso-8859-1';
             $config['wordwrap'] = TRUE;
+            $config['mailtype'] = 'html';
 
             $this->email->initialize($config);
-
             $this->email->from('your@example.com', 'Your Name');
             $this->email->to('someone@example.com');
-           
-
             $this->email->subject('Verify Your Account');
-            $this->email->message('Testing the email class.');
-
+            $this->email->message($html);
             $this->email->send();
-
             redirect('user/thanks');
         }
 
@@ -206,26 +201,5 @@ class User extends CI_Controller {
         $this->load->view('include/mini-footer');
     }
 
-    public function test(){
-
-         $this->load->library('email');
-
-           
-           
-             $config['newline'] = "\r\n";
-             $config['mailtype'] = 'html';         
-           
-            //$config['wordwrap'] = TRUE;
-
-            $this->email->initialize($config);
-
-            $this->email->from('info@surbhimilk.com', 'Your Name');
-            $this->email->to('pankaj.kapoor@aquadsoft.com');
-           
-
-            $this->email->subject('Verify Your Account');
-            $this->email->message('Testing the email class.');
-
-            echo $this->email->send();
-    }
+   
 }

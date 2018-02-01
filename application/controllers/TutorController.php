@@ -33,13 +33,108 @@ class TutorController extends CI_Controller {
 
     }
 
+
+    private function upload_files($path, $title, $files)
+    {
+        $config = array(
+            'upload_path'   => $path,
+            'overwrite'     => false,
+            'allowed_types' => 'jpg|gif|png|pdf' ,
+            'max_size' => 2048                      
+        );
+
+        $this->load->library('upload', $config);
+
+        $images = array();
+       
+        foreach ($files['name'] as $key => $image) {
+            $_FILES['images[]']['name']= $files['name'][$key];
+            $_FILES['images[]']['type']= $files['type'][$key];
+            $_FILES['images[]']['tmp_name']= $files['tmp_name'][$key];
+            $_FILES['images[]']['error']= $files['error'][$key];
+            $_FILES['images[]']['size']= $files['size'][$key];
+
+            $fileName = $title .'_'. $image;
+           
+            $images[] = $fileName;
+
+            $config['file_name'] = $fileName;
+
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('images[]')) {
+               $this->upload->data();
+             } else {
+                //return  array('error' => $this->upload->display_errors());;
+                return null;
+            }
+        }
+
+        return $images;
+    }
+
     public function profile()
     {
 
+        $user_id =  $this->session->id;
         $this->load->view('tutor/comman/head');
         $this->load->view('tutor/comman/header');
-       // $this->load->view('tutor/comman/sidebar');
-        $this->load->view('tutor/profile');
+      
+        $this->load->library('upload');
+        
+        
+        // Remember to give your form's submit tag a name="submit" attribute!
+        if($this->input->post()) { // Form has been submitted.
+           $array = array();
+           foreach($this->input->post() AS $var=>$val){
+               if(is_array($val)){
+                   $array[$var] = json_encode($val);
+                   
+               }else{
+                 $array[$var] = trim($val);
+               }
+            }
+
+
+
+            if(!empty($_FILES['profile']['name'][0])){
+            $array['profile'] = json_encode($this->upload_files("assets/uploads", "profile_".strtotime("now"), $_FILES['profile']));
+            }
+    
+            if(!empty($_FILES['grade']['name'][0])){
+            $array['grade'] = json_encode($this->upload_files("assets/uploads", strtotime("now"), $_FILES['grade']));
+            }
+            if(!empty($_FILES['gate']['name'][0])){
+            $array['gate'] = json_encode($this->upload_files("assets/uploads", strtotime("now"), $_FILES['gate']));
+            }
+
+        
+         unset($array['fname'],$array['lname']);
+
+         $arrayFirst = ['fname'=>$this->input->post('fname'),'lname'=>$this->input->post('lname')];
+
+         $this->My_model->update('tbl_tutor_profile',$array,array('tbl_user_id'=>$user_id));
+         $this->My_model->update('tbl_user',$arrayFirst,array('id'=>$user_id));
+         message("<div class='alert alert-success'>Profile updated Successfully.</div>");
+         redirect("TutorController/profile");
+                
+        
+        
+        }// $this->input->post()
+        
+       
+        
+        $user_data =  (array) $this->My_model->find_by('tbl_tutor_profile',array('tbl_user_id'=>$user_id));
+
+        $usertable = $this->My_model->find_by_sql1("select email,fname,lname from tbl_user where id = $user_data[tbl_user_id]");
+        foreach($usertable as $usertable);
+         $data  = array_merge($user_data,$usertable);
+         
+       
+        $this->load->view('tutor/profile',$data);
+
+
+    
 
         $this->load->view('tutor/comman/script');
         $this->load->view('tutor/comman/footer');

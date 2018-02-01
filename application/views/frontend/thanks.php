@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
             <div class="col-lg-12">
                 <p>&nbsp;</p>
-                <h2>Thanks for registering with us. Please check your inbox and verify your email.</h2>
+                <h2 style="color:#fff;text-align: center">Thanks for registering with us. Please check your inbox and verify your email.</h2>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>

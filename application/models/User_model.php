@@ -19,7 +19,8 @@ class User_model extends CI_Model
 
     public function addUser($data)
     {
-        return $this->db->insert('tbl_user', $data);
+        $this->db->insert('tbl_user', $data);
+        return $this->db->insert_id();
     }
 
     public function updateUser($field, $value, $data)
