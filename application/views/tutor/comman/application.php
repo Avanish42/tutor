@@ -2,7 +2,7 @@
 
     <section class="profile">
         <div class="container">
-            <h3 class="md black">Application Form</h3>
+            <h3 class="md black">Profile</h3>
                          <form method="post" action="<?php echo  base_url('TutorController/saveapplicationForm'); ?>"   enctype="multipart/form-data" >
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">

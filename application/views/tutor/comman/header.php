@@ -36,10 +36,10 @@
                     <li class="current-menu-item"><a href=" <?php echo  base_url('TutorController'); ?>">Home</a></li>
 
       <li>
-                        <a href=" <?php echo  base_url('TutorController/applicationForm'); ?>">Application Form</a>                    </li>
+                        <a href=" <?php echo  base_url('TutorController/applicationForm'); ?>">Profile</a>                    </li>
       <li>
 
-                        <a href=" <?php echo  base_url('TutorController/profile'); ?>">Profile</a>                    </li>
+                        <a href=" <?php echo  base_url('TutorController/profile'); ?>">Application Form</a>                    </li>
 
       <li class="menu-item-has-children">
                         <a href="#">Work History</a>

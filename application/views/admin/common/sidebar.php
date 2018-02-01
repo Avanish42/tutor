@@ -1,6 +1,6 @@
 <body class="theme-red">
 <!-- Page Loader -->
-<!-- <div class="page-loader-wrapper">
+<div class="page-loader-wrapper">
     <div class="loader">
         <div class="preloader">
             <div class="spinner-layer pl-red">
@@ -14,7 +14,7 @@
         </div>
         <p>Please wait...</p>
     </div>
-</div> -->
+</div>
 <!-- #END# Page Loader -->
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
@@ -47,7 +47,7 @@
         <!-- User Info -->
         <div class="user-info">
             <div class="image">
-                <img src="../../images/user.png" width="48" height="48" alt="User" />
+                <img src="<?php echo base_url(); ?>assets/images/tutor.png" width="48" height="48" alt="User" />
             </div>
             <div class="info-container">
                 <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $this->session->userdata('name');?></div>

@@ -2,7 +2,7 @@
     
     <section class="profile" style="margin-top: 50px">
         <div class="container">
-            <h3 class="md black">Profile</h3>
+            <h3 class="md black">Application Form</h3>
             <div class="row">
                 <div class="col-md-12 ">
              <?php  error_reporting(0);
