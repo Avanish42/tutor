@@ -721,52 +721,17 @@ class Admin extends CI_Controller
     public function getSideBarData()
     {
 
-        //echo "side Bar data";
-
-                // side_bar_data();
-                // die();
-       
-       
-        $Categoriesdata=$this->Tutor_model->getAllTutorCategories();
-       // print_r($Categoriesdata);
-        //die();
-
-        $final_data=array();
-         foreach($Categoriesdata as $key => $value)
-         {
-            //  print_r($value);
-            // echo $value->id;
-
-            $final_data[$key]=$value->name;
-            
-            $data =$this->Tutor_model->getTutorCourseByCategoriesId($value->id);
-
-            if(count($data))
-            {       
-                    foreach($data as $k=>$v)
-                    {
-                      //  print_r($v);
-                       // $final_data[$key]['ab']=array();
-                         //$final_data[$key]['ab']=$v;
-                    }
-                // print_r($data[0]);
-            }
-            
-        }
-         print_r($final_data);
-
-         foreach($final_data as $k=>$v)
-         {
-             echo $v;
+     $Categoriesdata=$this->Tutor_model->getAllTutorCategories();
+      
+      $array = [];
+       foreach($Categoriesdata as $var=>$val){
+        foreach($val as $k=>$p){
+             $array[$var][$k] = $p;
+             $array[$var]['course'] = $this->Tutor_model->getTutorCourseByCategoriesId($val->id);
          }
-        
-        $Categoriesdata['course']=array();
-        //foreach ($variable as $key => $value) {
-            # code...
 
-        //}
-
-
+       }
+      return $array;
 
 
     }
