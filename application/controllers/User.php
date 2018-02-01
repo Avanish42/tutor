@@ -58,14 +58,26 @@ class User extends CI_Controller {
              // mail function goes here
             $this->load->library('email');
 
-            $config['wordwrap'] = TRUE;
-            $config['mailtype'] = 'html';
-
+            $config = array(
+                'protocol'  => 'smtp',
+                'smtp_host' => 'ssl://smtp.googlemail.com',
+                'smtp_port' =>  '465',
+                'smtp_user' => 'ecademicstube@gmail.com',
+                'smtp_pass' => 'ecademicstube@123',
+                'mailtype'  => 'html',
+                'charset'   => 'utf-8'
+            );
             $this->email->initialize($config);
-            $this->email->from('your@example.com', 'Your Name');
-            $this->email->to('someone@example.com');
+            $this->email->set_mailtype("html");
+            $this->email->set_newline("\r\n");
+
+
+            $this->email->to($this->input->post('email'));
+            $this->email->from('ecademicstube@gmail.com','Tutor');
             $this->email->subject('Verify Your Account');
             $this->email->message($html);
+            
+           
             $this->email->send();
             redirect('user/thanks');
         }
