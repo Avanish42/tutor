@@ -23,7 +23,7 @@ class course extends CI_Controller {
     public function course_details($id='')
     {
 
-        $data['result'] = $this->My_model->find_by('tbl_tutor_meterial',array('id'=>$id));
+        $data['result'] = $this->My_model->find_by_all('tbl_tutor_meterial',array('course_id'=>$id));
 
        
         $this->load->view('tutor/comman/head');

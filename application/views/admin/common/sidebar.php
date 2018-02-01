@@ -1,6 +1,6 @@
 <body class="theme-red">
 <!-- Page Loader -->
-<div class="page-loader-wrapper">
+<!-- <div class="page-loader-wrapper">
     <div class="loader">
         <div class="preloader">
             <div class="spinner-layer pl-red">
@@ -14,7 +14,7 @@
         </div>
         <p>Please wait...</p>
     </div>
-</div>
+</div> -->
 <!-- #END# Page Loader -->
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
@@ -65,7 +65,7 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active">
+                <li class="">
                     <a href="javascript:void(0)" class="menu-toggle">
                         <span class="glyphicon glyphicon-tags"></span>
                         <span>Category Management</span>
@@ -169,7 +169,7 @@
                         <span>Tutor Subject Meterial</span>
                     </a>
                     <ul class="ml-menu">
-                        <li><a href="<?php echo base_url('admin/');?>">Tutor Subject Meterial</a></li>
+                        <li><a href="<?php echo base_url('admin/view_tutor');?>">Tutor Subject Meterial</a></li>
                         <li><a href="<?php echo base_url('admin/addTutorMaterial'); ?>">Add Tutor  Meterial  </a></li>
                     </ul>
                 </li>

@@ -2,16 +2,28 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                 <?php  error_reporting(0);
+     $msg = message();
+   if(!empty($msg)){ ?>
+       <?php echo message(); ?>
+    <?php } ?>
                 <div class="card">
                     <div class="header">
                         <h2>Material</h2>
                         
                     </div>
                     <div class="body">
-                        <form enctype="multipart/form-data" action="<?php echo base_url('admin/newcategory') ?>" method="POST">
+                        <form enctype="multipart/form-data" action="" method="POST">
 
-                                  <div class="form-group focused">
-                                <select class="form-control course" name="categories_id" required="" require>
+
+                             <!--  <div class="form-group focused">
+                                <input class="form-control course" placeholder="Name" name="name" required >
+                                    
+                            </div> -->
+
+                                  <div class="form-group ">
+                                <select class="form-control course" name="categories_id" required="" >
                                     <option value="">-- Select Categories --</option>
                                     <?php foreach( $categories as $key =>$value) {   ?>
                                                                             <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?> </option>
@@ -21,7 +33,7 @@
                             </div>
 
                              <div class="form-group focused">
-                                <select class="form-control addcourse" name="categories_id" required="" require>
+                                <select class="form-control addcourse" name="course_id" required="" >
                                     <option value="">-- Select Categories --</option>
                                     <?php foreach( $categories as $key =>$value) {   ?>
                                                                             <option value="<?php echo $value->id; ?>"><?php echo $value->name; ?> </option>
@@ -39,8 +51,8 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                CKEDITOR
-                                <small>CKEditor is a ready-for-use HTML text editor designed to simplify web content creation. Taken from <a href="http://ckeditor.com/" target="_blank">ckeditor.com</a></small>
+                                Content
+                             
                             </h2>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
@@ -56,7 +68,7 @@
                             </ul>
                         </div>
                         <div class="body">
-                            <textarea id="ckeditor">
+                            <textarea id="ckeditor" name="description">
                               
                             </textarea>
                         </div>

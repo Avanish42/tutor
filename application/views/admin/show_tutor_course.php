@@ -26,7 +26,7 @@
                                     <td><?php echo $value->created_At;?></td>
                                     <td>
                                         <a class="btn btn-xs btn-primary" href="<?php echo base_url('admin/updatesubscription/'.$value->id);?>"><span class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a class="btn btn-xs btn-danger" href="<?php echo base_url('admin/deletesubscription/'.$value->id);?>"><span class="glyphicon glyphicon-trash"></span> </a>
+                                        <a  onclick="return confirm('Are you sure?');" class="btn btn-xs btn-danger" href="<?php echo base_url('admin/deletecoursesss/'.$value->id);?>"><span class="glyphicon glyphicon-trash"></span> </a>
                                     </td>
                                 </tr>
                             <?php }?>

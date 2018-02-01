@@ -193,6 +193,42 @@ class Admin extends CI_Controller
         redirect('admin/dashboard');
     }
 
+
+
+
+    function deletesubject($id)
+    {
+        if(!$this->session->userdata('logged_in'))
+            redirect('admin');
+
+        $this->My_model->delete('tbl_tutor_meterial',array('id' => $id));
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+     function deletecoursesss($id)
+    {
+        if(!$this->session->userdata('logged_in'))
+            redirect('admin');
+
+        $this->My_model->delete('tbl_tutor_course',array('id' => $id));
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    
+
+     function deletesub($id)
+    {
+        if(!$this->session->userdata('logged_in'))
+            redirect('admin');
+
+        $this->My_model->delete(' tbl_tutor_categories',array('id' => $id));
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+
+
+    
+
     public function courses($category_id = 0)
     {
         if(!$this->session->userdata('logged_in'))
@@ -826,6 +862,9 @@ class Admin extends CI_Controller
 
     }
 
+
+
+
     public function showTutorCourse()
     {
        // echo "tutor course";
@@ -840,8 +879,45 @@ class Admin extends CI_Controller
                 $this->load->view('admin/common/footer');
 
     }
+
+
+        public function view_tutor(){
+             // echo "tutor course";
+                $data['result']  = $this->My_model->find_all("tbl_tutor_meterial");
+
+                $this->load->view('admin/common/head');
+                $this->load->view('admin/common/sidebar');
+                $this->load->view('admin/view_tutor',$data);
+                $this->load->view('admin/common/footer');
+        }
+
+
     public function addTutorMaterial()
     {
+
+
+             // Remember to give your form's submit tag a name="submit" attribute!
+        if($this->input->post()) { // Form has been submitted.
+           $array = array();
+           foreach($this->input->post() AS $var=>$val){
+               if(is_array($val)){
+                   $array[$var] = json_encode($val);
+                   
+               }else{
+                 $array[$var] = trim($val);
+               }
+            }
+        
+         $this->My_model->insert('tbl_tutor_meterial',$array);
+         message("<div class='alert alert-success'>Material addedd successfully.</div>");
+         redirect("admin/addTutorMaterial");
+        
+        }// $this->input->post()
+        
+
+
+
+
                 $data['categories']= $this->Tutor_model->getAllTutorCategories();
         
                 $this->load->view('admin/common/head');
@@ -877,6 +953,8 @@ class Admin extends CI_Controller
 
 
     }
+
+
 
 }
 
