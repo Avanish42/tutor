@@ -24,7 +24,7 @@
 
     <!-- Page Content -->
     <div class="container">
-<?php pr($email); ?>
+
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4 text-center" style="margin-top: 50px">
         <h1 class="display-3">A Warm Welcome!</h1>
