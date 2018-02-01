@@ -11,6 +11,8 @@
 
 <!-- Waves Effect Plugin Js -->
 <script src= "<?php echo base_url('assets/admin/plugins/node-waves/waves.js'); ?>"></script>
+<script src= "<?php echo base_url('assets/admin/plugins/ckeditor/ckeditor.js'); ?>"></script>
+<script src= "<?php echo base_url('assets/admin/plugins/tinymce/tinymce.js'); ?>"></script>
 
 <!-- Custom Js -->
 <script src= "<?php echo base_url('assets/admin/js/admin.js'); ?>"></script>

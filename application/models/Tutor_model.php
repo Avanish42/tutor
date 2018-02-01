@@ -49,6 +49,14 @@ class Tutor_model extends CI_Model
         //$this->db->join('table3', 'table3.ID = table1.ID');
     }
 
+    
+
+    public function saveProfileData($data)
+    {
+          $this ->db->insert('tbl_tutor_application',$data);
+    }
+
+
     public function getTutorCourseByCategoriesId($id)
     {
         $this->db->select('*');
@@ -56,11 +64,6 @@ class Tutor_model extends CI_Model
          $this->db->where('categories_id',$id);
          return $this->db->get()->result_array();
 
-    }
-
-    public function saveProfileData($data)
-    {
-          $this ->db->insert('tbl_tutor_application',$data);
     }
 
 

@@ -101,3 +101,65 @@ function loadTracking() {
     ga('send', 'pageview');
 }
 //========================================================================================================
+
+$(document).ready(function () {
+   // $("p").click(function () {
+     //   $(this).hide();
+     console.log("test");
+    $(".course").change(function(){
+        var id=$(this).val();
+       // console.log(data);
+
+
+
+    var request = $.ajax({
+        url: base+"admin/ajaxDropDown",
+        type: "POST",
+        data: { id: id },
+        dataType: "html"
+    });
+
+    request.done(function (msg) {
+        // $("#log").html(msg);
+        // console.log(msg);
+        $('.addcourse').empty();
+        $(".addcourse").append(msg);
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+        alert("Request failed: " + textStatus);
+    });
+
+
+
+
+
+    })
+
+
+
+    $(function () {
+        //CKEditor
+        CKEDITOR.replace('ckeditor');
+        CKEDITOR.config.height = 300;
+
+        //TinyMCE
+        tinymce.init({
+            selector: "textarea#tinymce",
+            theme: "modern",
+            height: 300,
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools'
+            ],
+            toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons',
+            image_advtab: true
+        });
+        tinymce.suffix = ".min";
+        tinyMCE.baseURL = '../../plugins/tinymce';
+    });
+
+    });

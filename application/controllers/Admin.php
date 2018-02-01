@@ -721,17 +721,53 @@ class Admin extends CI_Controller
     public function getSideBarData()
     {
 
-     $Categoriesdata=$this->Tutor_model->getAllTutorCategories();
-      
-      $array = [];
-       foreach($Categoriesdata as $var=>$val){
-        foreach($val as $k=>$p){
-             $array[$var][$k] = $p;
-             $array[$var]['course'] = $this->Tutor_model->getTutorCourseByCategoriesId($val->id);
-         }
+        //echo "side Bar data";
 
-       }
-      return $array;
+                // side_bar_data();
+                // die();
+       
+       
+        $Categoriesdata=$this->Tutor_model->getAllTutorCategories();
+       // print_r($Categoriesdata);
+        //die();
+
+        $final_data=array();
+         foreach($Categoriesdata as $key => $value)
+         {
+            //  print_r($value);
+            // echo $value->id;
+
+            $final_data[$key]=$value->name;
+            
+            $data =$this->Tutor_model->getTutorCourseByCategoriesId($value->id);
+
+            if(count($data))
+            {       
+                    foreach($data as $k=>$v)
+                    {
+                            //$final_data[$key][$k]=array();
+                            //  print_r($v);
+                            //array_push();
+                            // $final_data[$key]['ab']=$v;
+                    }
+                            // print_r($data[0]);
+            }
+            
+        }
+         print_r($final_data);
+
+         foreach($final_data as $k=>$v)
+         {
+             echo $v;
+         }
+        
+        $Categoriesdata['course']=array();
+        //foreach ($variable as $key => $value) {
+            # code...
+
+        //}
+
+
 
 
     }
@@ -761,8 +797,7 @@ class Admin extends CI_Controller
         
         
         $data['categories']= $this->Tutor_model->getAllTutorCategories();
-           // print_r($data);
-            //die();
+           
                 $this->load->view('admin/common/head');
                 $this->load->view('admin/common/sidebar');
                 $this->load->view('admin/show_tutor_categories',$data);
@@ -807,9 +842,11 @@ class Admin extends CI_Controller
     }
     public function addTutorMaterial()
     {
+                $data['categories']= $this->Tutor_model->getAllTutorCategories();
+        
                 $this->load->view('admin/common/head');
                 $this->load->view('admin/common/sidebar');
-                $this->load->view('admin/add_tutor_material');
+                $this->load->view('admin/add_tutor_material',$data);
                 $this->load->view('admin/common/footer');
     }
     public function saveTutorMaterial()
@@ -818,4 +855,29 @@ class Admin extends CI_Controller
 
     }
 
+    public function ajaxDropDown()
+    {
+        $id= $this->input->post('id');
+        //echo "in controler";
+
+        $data=$this->Tutor_model->getTutorCourseByCategoriesId($id);
+      //  print_r($data);
+
+               $course="<option>--Select Course-- </option>"; 
+            foreach($data as $k =>$v)
+            {
+                // echo $v['name'];
+                $course.= " <option value=" .$v['id']. ">" . $v['name'] ."</option> ";
+            }
+
+            echo $course;
+
+
+
+
+
+    }
+
 }
+
+
