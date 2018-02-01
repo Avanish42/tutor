@@ -1,5 +1,5 @@
 <?php $sidebar_data=side_bar_data();
-       pr($sidebar_data);
+       //pr($sidebar_data);
         ?>
 <aside>
   <nav class="navbar navbar-inverse sidebar navbar-fixed-top" role="navigation">
@@ -21,7 +21,7 @@
                  <ul class="sub-menu collapse" id="<?php echo $v['id']; ?>">
                    
                    <?php if(!empty($v['course'])) { foreach($v['course'] as $course){ ?>
-                    <li><a href="<?php echo base_url(); ?>"><?php echo $course['name'] ?></a></li>
+                    <li><a href="<?php echo base_url(); ?>course/course_details/<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
 
                     <?php }} ?>
                     

@@ -43,7 +43,8 @@ class User_model extends CI_Model
         $this->db->from('tbl_user');
         $this->db->where('email', $condition['email']);
         $this->db->where('password', $condition['password']);
-        $query = $this->db->get('');
+       // $this->db->where('status', 1);
+        $query = $this->db->get();
         return $query->result();
 
         //return $this->db->select('*, concat_ws(" ",fname, lname) as fullname')->get_where('tbl_user', $condition)->row()->result();
