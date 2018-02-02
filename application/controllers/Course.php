@@ -23,13 +23,61 @@ class course extends CI_Controller {
     public function course_details($id='')
     {
 
-        $data['result'] = $this->My_model->find_by_all('tbl_tutor_meterial',array('course_id'=>$id));
-
+        $rs= $this->My_model->find_by_all('tbl_tutor_meterial',array('course_id'=>$id));
+        foreach($rs as $dta);
+         $data['result'] =   @$dta;
+        
+      
        
         $this->load->view('tutor/comman/head');
         $this->load->view('tutor/comman/header');
         $this->load->view('tutor/comman/sidebar');
         $this->load->view('tutor/course',$data);
+        $this->load->view('tutor/comman/script');
+        $this->load->view('tutor/comman/footer');
+        // echo "in tutor contrloer";
+
+    }
+
+
+    //submit_answer
+
+    public function submit_answer(){
+         // Remember to give your form's submit tag a name="submit" attribute!
+        if($this->input->post()) { // Form has been submitted.
+           $array = array();
+           foreach($this->input->post() AS $var=>$val){
+               if(is_array($val)){
+                   $array[$var] = json_encode($val);
+                   
+               }else{
+                 $array[$var] = trim($val);
+               }
+            }
+        
+         $this->My_model->insert('tbl_tutor_answer',$array);
+        
+         redirect(base_url()."course/test/".$array['material_id']);
+    }
+}
+
+
+   
+
+    public function test($id='')
+    {
+
+        $user_id = $this->session->id;
+         $result  = $this->My_model->find_by_sql("select * from tbl_tutor_question where material_id = $id order by RAND() LIMIT 1");
+
+        foreach($result as $result);
+        $data['result'] = $result;
+
+        $data['material_id']  = $id;
+        $this->load->view('tutor/comman/head');
+        $this->load->view('tutor/comman/header');
+        $this->load->view('tutor/comman/sidebar');
+        $this->load->view('tutor/taketest',$data);
         $this->load->view('tutor/comman/script');
         $this->load->view('tutor/comman/footer');
         // echo "in tutor contrloer";

@@ -21,7 +21,7 @@
                  <ul class="sub-menu collapse" id="<?php echo $v['id']; ?>">
                    
                    <?php if(!empty($v['course'])) { foreach($v['course'] as $course){ ?>
-                    <li><a href="<?php echo base_url(); ?>course/course_details/<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
+                    <li><a style="display: inline-block" href="<?php echo base_url(); ?>course/course_details/<?php echo $course['id'] ?>"><?php echo $course['name'] ?></a></li>
 
                     <?php }} ?>
                     

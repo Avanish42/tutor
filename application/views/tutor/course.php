@@ -9,11 +9,17 @@
                 <div class="row">
                 <div class="col-md-12" style="margin-top: 50px">
                  
-                    <?php if(!empty($result)) foreach($result as $val) { ?>
+                    <?php if(!empty($result))  { ?>
 
-                    <?php echo $val->description; ?>
+                     <h1 class="title-box text-capitalize" style="font-size:24px;"><span style="color:#1195e6;"><?php echo $result->name; ?>
 
-                    <?php } ?>
+<a href="<?php echo base_url() ?>course/test/<?php echo $result->id; ?>" class="btn btn-success pull-right">TAKE A TEST</a>
+                     </h1>
+
+                    <?php echo $result->description; ?>
+
+                   <?php }else {echo "No result found";} ?>
+
 
                 </div>
                 </div>

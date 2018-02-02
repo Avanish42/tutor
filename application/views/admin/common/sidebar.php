@@ -174,6 +174,14 @@
                     </ul>
                 </li>
 
+                  <li>
+                    <a href="<?php echo base_url('admin/view_tutor_question');?>" class="menu-toggle">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        <span>View Tutor Question</span>
+                    </a>
+                   
+                </li>
+
             </ul>
         </div>
         <!-- #Menu -->

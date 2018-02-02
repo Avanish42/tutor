@@ -892,6 +892,7 @@ class Admin extends CI_Controller
         }
 
 
+
     public function addTutorMaterial()
     {
 
@@ -912,12 +913,7 @@ class Admin extends CI_Controller
          message("<div class='alert alert-success'>Material addedd successfully.</div>");
          redirect("admin/addTutorMaterial");
         
-        }// $this->input->post()
-        
-
-
-
-
+        }
                 $data['categories']= $this->Tutor_model->getAllTutorCategories();
         
                 $this->load->view('admin/common/head');
@@ -948,45 +944,66 @@ class Admin extends CI_Controller
 
             echo $course;
 
-
-
-
-
     }
 
 
 
-    public function test(){
-                //Load email library
-        $this->load->library('email');
-//ecademicstube@gmail.com
-//ecademicstube@123
-        //SMTP & mail configuration
-        $config = array(
-            'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' =>  '465',
-            'smtp_user' => 'ecademicstube@gmail.com',
-            'smtp_pass' => 'ecademicstube@123',
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8'
-        );
-        $this->email->initialize($config);
-        $this->email->set_mailtype("html");
-        $this->email->set_newline("\r\n");
+    public function add_tutor_question($id)
+    {
 
-        //Email content
-        $htmlContent = '<h1>Sending email via SMTP server</h1>';
-        $htmlContent .= '<p>This email has sent via SMTP server from CodeIgniter application.</p>';
 
-        $this->email->to('pankaj.kapoor@aquadsoft.com');
-        $this->email->from('ecademicstube@gmail.com','MyWebsite');
-        $this->email->subject('How to send email via SMTP server in CodeIgniter');
-        $this->email->message($htmlContent);
-
-        //Send email
-        $this->email->send();
+        // Remember to give your form's submit tag a name="submit" attribute!
+        if($this->input->post()) { // Form has been submitted.
+           $array = array();
+           foreach($this->input->post() AS $var=>$val){
+               if(is_array($val)){
+                   $array[$var] = json_encode($val);
+                   
+               }else{
+                 $array[$var] = trim($val);
+               }
+            }
+        
+         $this->My_model->insert('tbl_tutor_question',$array);
+         message("<div class='alert alert-success'>Question addedd successfully.</div>");
+         redirect("admin/view_tutor_question");
+        
+        }
+               
+        
+                $this->load->view('admin/common/head');
+                $this->load->view('admin/common/sidebar');
+                $this->load->view('admin/add_tutor_question',array('id'=>$id));
+                $this->load->view('admin/common/footer');
     }
+
+
+    
+
+    public function view_tutor_question(){
+             // echo "tutor course";
+                $data['result']  = $this->My_model->find_by_sql("select tbl_tutor_question.*, course_id,categories_id,name from tbl_tutor_question join tbl_tutor_meterial ON  tbl_tutor_question.material_id = tbl_tutor_meterial.id");
+
+                $this->load->view('admin/common/head');
+                $this->load->view('admin/common/sidebar');
+                $this->load->view('admin/view_tutor_question',$data);
+                $this->load->view('admin/common/footer');
+        }
+
+
+     function deletequestiontutor($id)
+    {
+        if(!$this->session->userdata('logged_in'))
+            redirect('admin');
+
+        $this->My_model->delete('tbl_tutor_question',array('id' => $id));
+        redirect($_SERVER['HTTP_REFERER']);
+    }
+
+
+
+
+   
 
 
 
